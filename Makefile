@@ -2,6 +2,7 @@
 GORENDER = ./gopath/bin/gorender --palette "vox/ttd_palette.json" -s 4 -overwrite
 NMLC = nmlc
 GCC = gcc
+MANIFEST = manifest.json
 
 # utilities
 GIT_NUMBER := $(shell git rev-list --count HEAD)
@@ -24,7 +25,8 @@ VOX_MASK_FILES = $(addsuffix _mask.png, $(basename $(VOX_FILES)))
 VOX_GENREATED_FILES = $(VOX_8BPP_FILES) $(VOX_32BPP_FILES) $(VOX_MASK_FILES)
 
 %_8bpp.png %_32bpp.png %_mask.png: %.vox
-	$(GORENDER) -m "$(dir $<)/manifest.json" $<
+	@echo "Rendering, manifest = $(dir $<)/$(MANIFEST), $<"
+	@$(GORENDER) -m "$(dir $<)/$(MANIFEST)" $<
 
 # sprites
 sprites: $(VOX_GENREATED_FILES)
