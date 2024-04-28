@@ -1,0 +1,15 @@
+grf {
+    grfid:                  "CNSP";
+    name:                   string(STR_GRF_NAME);
+    desc:                   string(STR_GRF_DESC);
+    url:                    string(STR_GRF_URL);
+    version:                0;
+    min_compatible_version: 0;
+}
+
+
+// version check
+if (ttd_platform != PLATFORM_OPENTTD || openttd_version < version_openttd(12,0)) {
+    error(FATAL, string(STR_OPENTTD));
+    exit;
+}

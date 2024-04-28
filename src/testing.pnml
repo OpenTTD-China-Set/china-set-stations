@@ -1,0 +1,55 @@
+spriteset (s_test_platform, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
+    template_standard_0("platforms/platform_concrete")
+    template_standard_1("platforms/platform_concrete")
+    template_standard_2("platforms/platform_concrete")
+    template_standard_3("platforms/platform_concrete")
+}
+
+spriteset (s_test_shelter, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
+    template_standard_zero(0, "shelters/shelter1")
+    template_standard_zero(1, "shelters/shelter1")
+    template_standard_zero(2, "shelters/shelter1")
+    template_standard_zero(3, "shelters/shelter1")
+}
+
+spritelayout sp_test() {
+    ground {
+        sprite: GROUNDSPRITE_RAIL_X;
+    }
+    building { // station platform
+        sprite: CUSTOM(0, 0);
+        xoffset: 0;
+        yoffset: 0;
+        zoffset: 0;
+        xextent: 16;
+        yextent: 6;
+        zextent: 6;
+    }
+    childsprite { // shelter
+        sprite: CUSTOM(1, 0);
+    }
+    building {
+        sprite: CUSTOM(0, 2);
+        xoffset: 0;
+        yoffset: 10;
+        zoffset: 0;
+        xextent: 16;
+        yextent: 6;
+        zextent: 6;
+    }
+    childsprite {
+        sprite: CUSTOM(1, 2);
+    }
+}
+
+item (FEAT_STATIONS, i_test) {
+    property {
+        class:      "CNS1";
+        classname:  string(STR_TEST);
+        name:       string(STR_TEST);
+    }
+    graphics {
+        sprite_layouts: [sp_test(), sp_test()];
+        custom_spritesets: [s_test_platform, s_test_shelter];
+    }
+}

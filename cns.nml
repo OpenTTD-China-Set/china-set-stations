@@ -1,0 +1,93 @@
+# 0 "indexes.pnml"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "/usr/include/stdc-predef.h" 1 3 4
+# 0 "<command-line>" 2
+# 1 "indexes.pnml"
+# 1 "src/header.pnml" 1
+grf {
+    grfid: "CNSP";
+    name: string(STR_GRF_NAME);
+    desc: string(STR_GRF_DESC);
+    url: string(STR_GRF_URL);
+    version: 0;
+    min_compatible_version: 0;
+}
+
+
+
+if (ttd_platform != PLATFORM_OPENTTD || openttd_version < version_openttd(12,0)) {
+    error(FATAL, string(STR_OPENTTD));
+    exit;
+}
+# 2 "indexes.pnml" 2
+# 1 "src/templates.pnml" 1
+# 10 "src/templates.pnml"
+template template_standard_0 (a) {[288 * 0, 0, 256, 312, -127, -182, "vox/"+a+"_32bpp.png"]}
+template template_standard_1 (a) {[288 * 1, 0, 256, 312, -125, -183, "vox/"+a+"_32bpp.png"]}
+template template_standard_2 (a) {[288 * 2, 0, 256, 312, -207, -222, "vox/"+a+"_32bpp.png"]}
+template template_standard_3 (a) {[288 * 3, 0, 256, 312, -45, -223, "vox/"+a+"_32bpp.png"]}
+template template_standard_4 (a) {[288 * 4, 0, 256, 312, -207, -222, "vox/"+a+"_32bpp.png"]}
+template template_standard_5 (a) {[288 * 5, 0, 256, 312, -45, -223, "vox/"+a+"_32bpp.png"]}
+template template_standard_6 (a) {[288 * 6, 0, 256, 312, -127, -182, "vox/"+a+"_32bpp.png"]}
+template template_standard_7 (a) {[288 * 7, 0, 256, 312, -125, -183, "vox/"+a+"_32bpp.png"]}
+
+template template_standard_zero (pos, a) {[288 * pos, 0, 256, 312, 0, 0, "vox/"+a+"_32bpp.png"]}
+# 3 "indexes.pnml" 2
+# 1 "src/testing.pnml" 1
+spriteset (s_test_platform, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
+    template_standard_0("platforms/platform_concrete")
+    template_standard_1("platforms/platform_concrete")
+    template_standard_2("platforms/platform_concrete")
+    template_standard_3("platforms/platform_concrete")
+}
+
+spriteset (s_test_shelter, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
+    template_standard_zero(0, "shelters/shelter1")
+    template_standard_zero(1, "shelters/shelter1")
+    template_standard_zero(2, "shelters/shelter1")
+    template_standard_zero(3, "shelters/shelter1")
+}
+
+spritelayout sp_test() {
+    ground {
+        sprite: GROUNDSPRITE_RAIL_X;
+    }
+    building {
+        sprite: CUSTOM(0, 0);
+        xoffset: 0;
+        yoffset: 0;
+        zoffset: 0;
+        xextent: 16;
+        yextent: 6;
+        zextent: 6;
+    }
+    childsprite {
+        sprite: CUSTOM(1, 0);
+    }
+    building {
+        sprite: CUSTOM(0, 2);
+        xoffset: 0;
+        yoffset: 10;
+        zoffset: 0;
+        xextent: 16;
+        yextent: 6;
+        zextent: 6;
+    }
+    childsprite {
+        sprite: CUSTOM(1, 2);
+    }
+}
+
+item (FEAT_STATIONS, i_test) {
+    property {
+        class: "CNS1";
+        classname: string(STR_TEST);
+        name: string(STR_TEST);
+    }
+    graphics {
+        sprite_layouts: [sp_test(), sp_test()];
+        custom_spritesets: [s_test_platform, s_test_shelter];
+    }
+}
+# 4 "indexes.pnml" 2

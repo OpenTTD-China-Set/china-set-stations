@@ -1,0 +1,19 @@
+#define POSITION_X 288
+#define POSITION_Y 0
+#define SIZE_X 256
+#define SIZE_Y 312
+
+#define PATH "vox/"+a+"_32bpp.png"
+
+// empty templates and sprites will be removed after the release of NML 0.7.5
+// currently for maximum compatibility we need to keep them
+template template_standard_0 (a) {[POSITION_X * 0, POSITION_Y, SIZE_X, SIZE_Y, -127, -182, PATH]}
+template template_standard_1 (a) {[POSITION_X * 1, POSITION_Y, SIZE_X, SIZE_Y, -125, -183, PATH]}
+template template_standard_2 (a) {[POSITION_X * 2, POSITION_Y, SIZE_X, SIZE_Y, -207, -222, PATH]}
+template template_standard_3 (a) {[POSITION_X * 3, POSITION_Y, SIZE_X, SIZE_Y,  -45, -223, PATH]}
+template template_standard_4 (a) {[POSITION_X * 4, POSITION_Y, SIZE_X, SIZE_Y, -207, -222, PATH]}
+template template_standard_5 (a) {[POSITION_X * 5, POSITION_Y, SIZE_X, SIZE_Y,  -45, -223, PATH]}
+template template_standard_6 (a) {[POSITION_X * 6, POSITION_Y, SIZE_X, SIZE_Y, -127, -182, PATH]}
+template template_standard_7 (a) {[POSITION_X * 7, POSITION_Y, SIZE_X, SIZE_Y, -125, -183, PATH]}
+
+template template_standard_zero (pos, a) {[POSITION_X * pos, POSITION_Y, SIZE_X, SIZE_Y, 0, 0, PATH]}

@@ -1,0 +1,7 @@
+gfx
+*.grf
+gopath
+*.png
+!palette.png
+.nmlcache
+nmlc

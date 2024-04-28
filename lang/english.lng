@@ -1,0 +1,11 @@
+##grflangid 0x01
+# english_uk
+
+
+STR_GRF_NAME        :China Set: Stations
+STR_GRF_DESC        :Set of Chinese themed stations. Made by WenSim and the China Set team.
+STR_GRF_URL         :http://www.github.com/openttd-china-set
+
+# utilities
+STR_TEST            :Test
+STR_OPENTTD         :OpenTTD
