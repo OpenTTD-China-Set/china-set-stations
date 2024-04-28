@@ -17,5 +17,5 @@ The following subjects are required to build the program:
 
 You can use `install_dependencies.sh` to quickly download and setup `gorender`
 
-Use the `make` or `make all` command to build the grf; additionally, you could use `make all copy` to quickly copy the grf file to your game directory.
-For Windows users, we suggest using `wsl` to build the grf. Note that `gorender` may be slow when using wsl.
+Use the `make` or `make all` command to build the grf; additionally, you could use `make all copy` to copy the grf file to your game directory. Ideally it should be `~/.local/share/openttd/newgrf`; the path may vary depending on your game version and platform.
+For Windows users, we suggest using `wsl` to build the grf. Please note that `gorender` may be slow when using wsl.

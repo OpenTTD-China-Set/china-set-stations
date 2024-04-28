@@ -12,7 +12,7 @@ spriteset (s_test_shelter, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
     template_standard_zero(3, "shelters/shelter1")
 }
 
-spritelayout sp_test() {
+spritelayout sp_test(show_platform_n, show_platform_s) {
     ground {
         sprite: GROUNDSPRITE_RAIL_X;
     }
@@ -24,6 +24,7 @@ spritelayout sp_test() {
         xextent: 16;
         yextent: 6;
         zextent: 6;
+        hide_sprite: show_platform_n;
     }
     childsprite { // shelter
         sprite: CUSTOM(1, 0);
@@ -36,6 +37,7 @@ spritelayout sp_test() {
         xextent: 16;
         yextent: 6;
         zextent: 6;
+        hide_sprite: show_platform_s;
     }
     childsprite {
         sprite: CUSTOM(1, 2);
@@ -49,7 +51,43 @@ item (FEAT_STATIONS, i_test) {
         name:       string(STR_TEST);
     }
     graphics {
-        sprite_layouts: [sp_test(), sp_test()];
+        sprite_layouts: [sp_test(0,0), sp_test(0,0)];
+        custom_spritesets: [s_test_platform, s_test_shelter];
+    }
+}
+
+item (FEAT_STATIONS, i_test_2) {
+    property {
+        class:      "CNS1";
+        classname:  string(STR_TEST);
+        name:       string(STR_TEST);
+    }
+    graphics {
+        sprite_layouts: [sp_test(0,1), sp_test(0,1)];
+        custom_spritesets: [s_test_platform, s_test_shelter];
+    }
+}
+
+item (FEAT_STATIONS, i_test_3) {
+    property {
+        class:      "CNS1";
+        classname:  string(STR_TEST);
+        name:       string(STR_TEST);
+    }
+    graphics {
+        sprite_layouts: [sp_test(1,0), sp_test(1,0)];
+        custom_spritesets: [s_test_platform, s_test_shelter];
+    }
+}
+
+item (FEAT_STATIONS, i_test_4) {
+    property {
+        class:      "CNS1";
+        classname:  string(STR_TEST);
+        name:       string(STR_TEST);
+    }
+    graphics {
+        sprite_layouts: [sp_test(1,1), sp_test(1,1)];
         custom_spritesets: [s_test_platform, s_test_shelter];
     }
 }

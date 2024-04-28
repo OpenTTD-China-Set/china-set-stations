@@ -1,48 +1,58 @@
 # dependencies
-GORENDER = ./gopath/bin/gorender --palette "vox/ttd_palette.json" -m "vox/manifest.json" -s 4 -overwrite
+GORENDER = ./gopath/bin/gorender --palette "vox/ttd_palette.json" -s 4 -overwrite
 NMLC = nmlc
 GCC = gcc
 
-
-# building paths
-BUILD_DIR = build
-
-# voxel paths
-
-VOX_DIR = vox
-VOX_BUILDINGS = $(wildcard $(VOX_DIR)/buildings/*.vox)
-VOX_PLATFORMS = $(wildcard $(VOX_DIR)/platforms/*.vox)
-VOX_SHELTERS = $(wildcard $(VOX_DIR)/shelters/*.vox)
-VOX_FENCES = $(wildcard $(VOX_DIR)/fences/*.vox)
-
-VOX_FILES = $(VOX_BUILDINGS) $(VOX_PLATFORMS) $(VOX_SHELTERS) $(VOX_FENCES)
-
-VOX_8BPP_FILES = $(patsubst %.vox,%_8bpp.png,$(VOX_FILES))
-VOX_32BPP_FILES = $(patsubst %.vox,%_32bpp.png,$(VOX_FILES))
-VOX_MASK_FILES = $(patsubst %.vox,%_mask.png,$(VOX_FILES))
+# utilities
+GIT_NUMBER := $(shell git rev-list --count HEAD)
 
 
-
-%_8bpp.png %_32bpp.png %_mask.png: %.vox
-	$(GORENDER) $<
-
+.PHONY: all sprites code clean clean_grf clean_png copy
 # default rule
 all: sprites code
 
-sprites: $(VOX_8BPP_FILES) $(VOX_32BPP_FILES) $(VOX_MASK_FILES)
 
+
+# voxel paths
+VOX_DIR = vox
+VOX_FILES = $(wildcard $(VOX_DIR)/*/*.vox)
+
+VOX_8BPP_FILES = $(addsuffix _8bpp.png, $(basename $(VOX_FILES)))
+VOX_32BPP_FILES = $(addsuffix _32bpp.png, $(basename $(VOX_FILES)))
+VOX_MASK_FILES = $(addsuffix _mask.png, $(basename $(VOX_FILES)))
+
+VOX_GENREATED_FILES = $(VOX_8BPP_FILES) $(VOX_32BPP_FILES) $(VOX_MASK_FILES)
+
+%_8bpp.png %_32bpp.png %_mask.png: %.vox
+	$(GORENDER) -m "$(dir $<)/manifest.json" $<
+
+# sprites
+sprites: $(VOX_GENREATED_FILES)
+
+# code
 NML_FILE = cns.nml
-CODE_FILES = $(shell find . -name '*.pnml') $(shell find . -name '*.lng') $(shell find . -name 'custom_tags.txt') indexes.pnml
+CODE_FILES = $(shell find . \( -name '*.pnml' -o -name '*.lng' \)) $(INDEX_FILE)
 INDEX_FILE = indexes.pnml
 GRF_FILE = cns.grf
 
-$(GRF_FILE): $(CODE_FILES)
-	$(GCC) -E -x c -o $(NML_FILE) $(INDEX_FILE)
-	$(NMLC) $(NML_FILE)
+TAGS = tags.txt
+CUSTOM_TAGS = custom_tags.txt
 
 # Rule to run nmlc when the NML file changes
-code: $(GRF_FILE) $(NML_FILE)
+# The GRF file is rebuilt every time the PNML files or the graphics files are changed
+$(CUSTOM_TAGS): $(TAGS)
+	$(GCC) -E -x c -D 'GIT_NUMBER=$(GIT_NUMBER)' -o $@ $<
 
+$(NML_FILE): $(CODE_FILES) $(VOX_GENREATED_FILES) $(CUSTOM_TAGS)
+	$(GCC) -E -x c -D 'GIT_NUMBER=$(GIT_NUMBER)' -o $@ $(INDEX_FILE)
+
+$(GRF_FILE): $(NML_FILE)
+	$(NMLC) $<
+
+# Rule to run nmlc when the NML file changes
+code: $(GRF_FILE)
+
+# clean
 clean: clean_grf clean_png
 
 clean_grf:
@@ -58,4 +68,4 @@ clean_png:
 # it should be something like /mnt/c/users/<username>/documents/openttd/newgrf on wsl
 copy:
 	@echo "Copying GRF files to OpenTTD data directory"
-	@cp cns.grf ~/.local/share/openttd/newgrf/cns.grf
+	@cp $(GRF_FILE) ~/.local/share/openttd/newgrf/$(GRF_FILE)
