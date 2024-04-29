@@ -1,9 +1,9 @@
 ##grflangid 0x01
 # english_uk
 
-
-STR_GRF_NAME        :China Set: Stations v{VERSION} ({GITNUM})
-STR_GRF_DESC        :Set of Chinese themed stations. Made by WenSim and the China Set team.
+# basic information
+STR_GRF_NAME        :China Set: Stations {PUSH_COLOUR}{WHITE}{VERSION}{POP_COLOUR}
+STR_GRF_DESC        :{PUSH_COLOUR}{WHITE}{TIME}, Git: {GITNUM}{POP_COLOUR}{}Set of Chinese themed stations. Made by WenSim and the China Set team.
 STR_GRF_URL         :http://www.github.com/openttd-china-set
 
 # utilities

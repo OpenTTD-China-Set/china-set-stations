@@ -1,8 +1,9 @@
 # dependencies
-GORENDER = ./gopath/bin/gorender --palette "vox/ttd_palette.json" -s 4 -overwrite
-NMLC = nmlc
-GCC = gcc
-MANIFEST = manifest.json
+GORENDER := ./gopath/bin/gorender --palette "vox/ttd_palette.json" -s 4 -overwrite
+NMLC := nmlc
+GCC := gcc
+MANIFEST := manifest.json
+TIME := $(shell date -u +%Y/%m/%d\ %H:%M:%S\ UTC)
 
 # utilities
 GIT_NUMBER := $(shell git rev-list --count HEAD)
@@ -43,7 +44,7 @@ CUSTOM_TAGS = custom_tags.txt
 # Rule to run nmlc when the NML file changes
 # The GRF file is rebuilt every time the PNML files or the graphics files are changed
 $(CUSTOM_TAGS): $(TAGS)
-	$(GCC) -E -x c -D 'GIT_NUMBER=$(GIT_NUMBER)' -o $@ $<
+	$(GCC) -E -x c -D 'GIT_NUMBER=$(GIT_NUMBER)' -D 'CURRENT_TIME=$(TIME)' -o $@ $<
 
 $(NML_FILE): $(CODE_FILES) $(VOX_GENREATED_FILES) $(CUSTOM_TAGS)
 	$(GCC) -E -x c -D 'GIT_NUMBER=$(GIT_NUMBER)' -o $@ $(INDEX_FILE)
@@ -61,6 +62,7 @@ clean_grf:
 	@echo "Cleaning GRF and NML files"
 	@rm -f *.grf
 	@rm -f *.nml
+	@rm -f $(CUSTOM_TAGS)
 
 clean_png:
 	@echo "Cleaning PNG files"
