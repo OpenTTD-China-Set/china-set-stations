@@ -23,17 +23,17 @@ spritelayout sp_test_x(show_platform_n, show_platform_s) {
     ground {sprite: GROUNDSPRITE_RAIL_X;}
     building {
         sprite: s_test_bufferstop(1);
-        BUFFERSTOP_BBOX_Y_N // macro
+        BUFFERSTOP_BBOX_NW // macro
         hide_sprite: getbits(LOAD_TEMP(0), 0, 1);
     }
     building {
         sprite: s_test_bufferstop(3);
-        BUFFERSTOP_BBOX_Y_S // macro
+        BUFFERSTOP_BBOX_SE // macro
         hide_sprite: getbits(LOAD_TEMP(0), 1, 1);
     }
     building { // station platform, macro is used to define the bounding box.
         sprite: CUSTOM(0, 0);
-        PLATFORM_BBOX_X_N // macro
+        PLATFORM_BBOX_NE // macro
         hide_sprite: show_platform_n;
     }
     childsprite { // shelter
@@ -41,7 +41,7 @@ spritelayout sp_test_x(show_platform_n, show_platform_s) {
     }
     building {
         sprite: CUSTOM(0, 2);
-        PLATFORM_BBOX_X_S // macro
+        PLATFORM_BBOX_SW // macro
         hide_sprite: show_platform_s;
     }
     childsprite {
@@ -53,17 +53,17 @@ spritelayout sp_test_y(show_platform_n, show_platform_s) {
     ground {sprite: GROUNDSPRITE_RAIL_Y;}
     building {
         sprite: s_test_bufferstop(0);
-        BUFFERSTOP_BBOX_X_N // macro
+        BUFFERSTOP_BBOX_NE // macro
         hide_sprite: getbits(LOAD_TEMP(0), 0, 1);
     }
     building {
         sprite: s_test_bufferstop(2);
-        BUFFERSTOP_BBOX_X_S // macro
+        BUFFERSTOP_BBOX_SW // macro
         hide_sprite: getbits(LOAD_TEMP(0), 1, 1);
     }
     building { // station platform, macros are still used
         sprite: CUSTOM(0, 1);
-        PLATFORM_BBOX_Y_N // macro
+        PLATFORM_BBOX_NW // macro
         hide_sprite: show_platform_n;
     }
     childsprite {
@@ -71,7 +71,7 @@ spritelayout sp_test_y(show_platform_n, show_platform_s) {
     }
     building {
         sprite: CUSTOM(0, 3);
-        PLATFORM_BBOX_Y_S // macro
+        PLATFORM_BBOX_SE // macro
         hide_sprite: show_platform_s;
     }
     childsprite {

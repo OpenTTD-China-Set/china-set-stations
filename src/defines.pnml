@@ -4,7 +4,7 @@
 // we assume that all platforms have the same bbox length, in this case, it is 16.
 
 
-#define PLATFORM_BBOX_X_N \
+#define PLATFORM_BBOX_NE \
     xoffset: 0;\
     yoffset: 0;\
     zoffset: 0;\
@@ -12,7 +12,7 @@
     yextent: PLATFORM_WIDTH;\
     zextent: PLATFORM_HEIGHT;\
 
-#define PLATFORM_BBOX_X_S \
+#define PLATFORM_BBOX_SW \
     xoffset: 0;\
     yoffset: FULL_LENGTH - PLATFORM_WIDTH;\
     zoffset: 0;\
@@ -20,7 +20,7 @@
     yextent: PLATFORM_WIDTH;\
     zextent: PLATFORM_HEIGHT;\
 
-#define PLATFORM_BBOX_Y_N \
+#define PLATFORM_BBOX_NW \
     xoffset: 0;\
     yoffset: 0;\
     zoffset: 0;\
@@ -28,7 +28,7 @@
     yextent: FULL_LENGTH;\
     zextent: PLATFORM_HEIGHT;\
 
-#define PLATFORM_BBOX_Y_S \
+#define PLATFORM_BBOX_SE \
     xoffset: FULL_LENGTH - PLATFORM_WIDTH;\
     yoffset: 0;\
     zoffset: 0;\
@@ -40,7 +40,7 @@
 #define BUFFERSTOP_HEIGHT 6
 #define BUFFERSTOP_LENGTH 6
 
-#define BUFFERSTOP_BBOX_X_N \
+#define BUFFERSTOP_BBOX_NE \
     xoffset: (FULL_LENGTH - BUFFERSTOP_LENGTH) / 2;\
     yoffset: 0;\
     zoffset: 0;\
@@ -48,7 +48,7 @@
     yextent: BUFFERSTOP_WIDTH;\
     zextent: BUFFERSTOP_HEIGHT;\
 
-#define BUFFERSTOP_BBOX_X_S \
+#define BUFFERSTOP_BBOX_SW \
     xoffset: (FULL_LENGTH - BUFFERSTOP_LENGTH) / 2;\
     yoffset: FULL_LENGTH - BUFFERSTOP_WIDTH;\
     zoffset: 0;\
@@ -56,7 +56,7 @@
     yextent: BUFFERSTOP_WIDTH;\
     zextent: BUFFERSTOP_HEIGHT;\
 
-#define BUFFERSTOP_BBOX_Y_N \
+#define BUFFERSTOP_BBOX_NW \
     xoffset: 0;\
     yoffset: (FULL_LENGTH - BUFFERSTOP_LENGTH) / 2;\
     zoffset: 0;\
@@ -64,7 +64,7 @@
     yextent: BUFFERSTOP_LENGTH;\
     zextent: BUFFERSTOP_HEIGHT;\
 
-#define BUFFERSTOP_BBOX_Y_S \
+#define BUFFERSTOP_BBOX_SE \
     xoffset: FULL_LENGTH - BUFFERSTOP_WIDTH;\
     yoffset: (FULL_LENGTH - BUFFERSTOP_LENGTH) / 2;\
     zoffset: 0;\
