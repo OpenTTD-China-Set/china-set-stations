@@ -1,6 +1,6 @@
 # dependencies
 GORENDER := ./gopath/bin/gorender --palette "vox/ttd_palette.json" -s 4 -overwrite
-NMLC := nmlc
+NMLC := nml/nmlc
 GCC := gcc
 MANIFEST := manifest.json
 TIME := $(shell date -u +%Y/%m/%d\ %H:%M:%S\ UTC)

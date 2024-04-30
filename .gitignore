@@ -1,9 +1,10 @@
-gfx
+.nmlcache/
+gopath/
+nml/
+gfx/
+sprites/
 *.grf
-gopath
 *.png
-!palette.png
-.nmlcache
-nmlc
 custom_tags.txt
 cns.nml
+!palette.png
