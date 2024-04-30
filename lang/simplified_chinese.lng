@@ -1,0 +1,25 @@
+##grflangid 0x56
+# zh_CN
+
+# basic information
+STR_GRF_NAME        :中国包：车站{PUSH_COLOUR}{WHITE}{VERSION}{POP_COLOUR}
+STR_GRF_DESC        :{PUSH_COLOUR}{WHITE}{TIME}, Git: {GITNUM}{POP_COLOUR}{}Set of Chinese themed stations. Made by WenSim and the China Set team.
+STR_GRF_URL         :http://www.github.com/openttd-china-set
+
+# utilities
+STR_TEST            :测试
+STR_OPENTTD         :OpenTTD
+
+# stations
+# here 0 stands for show and 1 stands for hide
+# NPLAT = nothern platform
+# SPLAT = southern platform
+# SHELTER = shelter
+STR_NPLAT_0         :{PUSH_COLOUR}{GREEN}北{POP_COLOUR}
+STR_NPLAT_1         :{PUSH_COLOUR}{RED}北{POP_COLOUR}
+STR_SPLAT_0         :{PUSH_COLOUR}{GREEN}南{POP_COLOUR}
+STR_SPLAT_1         :{PUSH_COLOUR}{RED}南{POP_COLOUR}
+STR_SHELTER_0       :{PUSH_COLOUR}{GREEN}雨{POP_COLOUR}
+STR_SHELTER_1       :{PUSH_COLOUR}{RED}雨{POP_COLOUR}
+
+STR_STATION_WRAPPER :站台（{STRING}{STRING}{STRING}）
