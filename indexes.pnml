@@ -1,3 +1,4 @@
+#include "src/defines.pnml"
 #include "src/header.pnml"
 #include "src/templates.pnml"
 #include "src/testing.pnml"

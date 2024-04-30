@@ -5,15 +5,20 @@
 
 #define PATH "vox/"+a+"_32bpp.png"
 
-// empty templates and sprites will be removed after the release of NML 0.7.5
+// empty templates and sprites will be removed after the release of NML 0.7.5   
 // currently for maximum compatibility we need to keep them
-template template_standard_0 (a) {[POSITION_X * 0, POSITION_Y, SIZE_X, SIZE_Y, -127, -182, PATH]}
-template template_standard_1 (a) {[POSITION_X * 1, POSITION_Y, SIZE_X, SIZE_Y, -125, -183, PATH]}
-template template_standard_2 (a) {[POSITION_X * 2, POSITION_Y, SIZE_X, SIZE_Y, -207, -222, PATH]}
-template template_standard_3 (a) {[POSITION_X * 3, POSITION_Y, SIZE_X, SIZE_Y,  -45, -223, PATH]}
-template template_standard_4 (a) {[POSITION_X * 4, POSITION_Y, SIZE_X, SIZE_Y, -207, -222, PATH]}
-template template_standard_5 (a) {[POSITION_X * 5, POSITION_Y, SIZE_X, SIZE_Y,  -45, -223, PATH]}
-template template_standard_6 (a) {[POSITION_X * 6, POSITION_Y, SIZE_X, SIZE_Y, -127, -182, PATH]}
-template template_standard_7 (a) {[POSITION_X * 7, POSITION_Y, SIZE_X, SIZE_Y, -125, -183, PATH]}
+template template_platform_0 (a) {[POSITION_X * 0, POSITION_Y, SIZE_X, SIZE_Y, -127, -182, PATH]}
+template template_platform_1 (a) {[POSITION_X * 1, POSITION_Y, SIZE_X, SIZE_Y, -125, -183, PATH]}
+template template_platform_2 (a) {[POSITION_X * 2, POSITION_Y, SIZE_X, SIZE_Y, -207, -222, PATH]}
+template template_platform_3 (a) {[POSITION_X * 3, POSITION_Y, SIZE_X, SIZE_Y,  -45, -223, PATH]}
+template template_platform_4 (a) {[POSITION_X * 4, POSITION_Y, SIZE_X, SIZE_Y, -207, -222, PATH]}
+template template_platform_5 (a) {[POSITION_X * 5, POSITION_Y, SIZE_X, SIZE_Y,  -45, -223, PATH]}
+template template_platform_6 (a) {[POSITION_X * 6, POSITION_Y, SIZE_X, SIZE_Y, -127, -182, PATH]}
+template template_platform_7 (a) {[POSITION_X * 7, POSITION_Y, SIZE_X, SIZE_Y, -125, -183, PATH]}
 
-template template_standard_zero (pos, a) {[POSITION_X * pos, POSITION_Y, SIZE_X, SIZE_Y, 0, 0, PATH]}
+template template_bufferstop_0 (a) {[POSITION_X * 0, POSITION_Y, SIZE_X, SIZE_Y,  -85, -204, PATH]}
+template template_bufferstop_1 (a) {[POSITION_X * 1, POSITION_Y, SIZE_X, SIZE_Y, -162, -204, PATH]}
+template template_bufferstop_2 (a) {[POSITION_X * 2, POSITION_Y, SIZE_X, SIZE_Y, -162, -243, PATH]}
+template template_bufferstop_3 (a) {[POSITION_X * 3, POSITION_Y, SIZE_X, SIZE_Y,  -85, -243, PATH]}
+
+template template_platform_zero (pos, a) {[POSITION_X * pos, POSITION_Y, SIZE_X, SIZE_Y, 0, 0, PATH]}

@@ -1,29 +1,39 @@
 spriteset (s_test_platform, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
-    template_standard_0("platforms/platform_concrete")
-    template_standard_1("platforms/platform_concrete")
-    template_standard_2("platforms/platform_concrete")
-    template_standard_3("platforms/platform_concrete")
+    template_platform_0("platforms/platform_concrete")
+    template_platform_1("platforms/platform_concrete")
+    template_platform_2("platforms/platform_concrete")
+    template_platform_3("platforms/platform_concrete")
 }
 
 spriteset (s_test_shelter, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
-    template_standard_zero(0, "shelters/shelter1")
-    template_standard_zero(1, "shelters/shelter1")
-    template_standard_zero(2, "shelters/shelter1")
-    template_standard_zero(3, "shelters/shelter1")
+    template_platform_zero(0, "shelters/shelter1")
+    template_platform_zero(1, "shelters/shelter1")
+    template_platform_zero(2, "shelters/shelter1")
+    template_platform_zero(3, "shelters/shelter1")
 }
 
-spritelayout sp_test(show_platform_n, show_platform_s) {
-    ground {
-        sprite: GROUNDSPRITE_RAIL_X;
+spriteset (s_test_bufferstop, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
+    template_bufferstop_0("extras/bufferstop")
+    template_bufferstop_1("extras/bufferstop")
+    template_bufferstop_2("extras/bufferstop")
+    template_bufferstop_3("extras/bufferstop")
+}
+
+spritelayout sp_test_x(show_platform_n, show_platform_s) {
+    ground {sprite: GROUNDSPRITE_RAIL_X;}
+    building {
+        sprite: s_test_bufferstop(1);
+        BUFFERSTOP_BBOX_Y_N // macro
+        hide_sprite: getbits(LOAD_TEMP(0), 0, 1);
     }
-    building { // station platform
+    building {
+        sprite: s_test_bufferstop(3);
+        BUFFERSTOP_BBOX_Y_S // macro
+        hide_sprite: getbits(LOAD_TEMP(0), 1, 1);
+    }
+    building { // station platform, macro is used to define the bounding box.
         sprite: CUSTOM(0, 0);
-        xoffset: 0;
-        yoffset: 0;
-        zoffset: 0;
-        xextent: 16;
-        yextent: 6;
-        zextent: 6;
+        PLATFORM_BBOX_X_N // macro
         hide_sprite: show_platform_n;
     }
     childsprite { // shelter
@@ -31,18 +41,53 @@ spritelayout sp_test(show_platform_n, show_platform_s) {
     }
     building {
         sprite: CUSTOM(0, 2);
-        xoffset: 0;
-        yoffset: 10;
-        zoffset: 0;
-        xextent: 16;
-        yextent: 6;
-        zextent: 6;
+        PLATFORM_BBOX_X_S // macro
         hide_sprite: show_platform_s;
     }
     childsprite {
         sprite: CUSTOM(1, 2);
     }
 }
+
+spritelayout sp_test_y(show_platform_n, show_platform_s) {
+    ground {sprite: GROUNDSPRITE_RAIL_Y;}
+    building {
+        sprite: s_test_bufferstop(0);
+        BUFFERSTOP_BBOX_X_N // macro
+        hide_sprite: getbits(LOAD_TEMP(0), 0, 1);
+    }
+    building {
+        sprite: s_test_bufferstop(2);
+        BUFFERSTOP_BBOX_X_S // macro
+        hide_sprite: getbits(LOAD_TEMP(0), 1, 1);
+    }
+    building { // station platform, macros are still used
+        sprite: CUSTOM(0, 1);
+        PLATFORM_BBOX_Y_N // macro
+        hide_sprite: show_platform_n;
+    }
+    childsprite {
+        sprite: CUSTOM(1, 1);
+    }
+    building {
+        sprite: CUSTOM(0, 3);
+        PLATFORM_BBOX_Y_S // macro
+        hide_sprite: show_platform_s;
+    }
+    childsprite {
+        sprite: CUSTOM(1, 3);
+    }
+}
+/* about registers
+ * 0: rail continuation, used for bufferstops
+*/
+
+
+switch (FEAT_STATIONS, SELF, sw_test, [
+    STORE_TEMP(hasbit(rail_continuation, 1) << 0|
+               hasbit(rail_continuation, 0) << 1, 0),
+])
+{return;}
 
 item (FEAT_STATIONS, i_test) {
     property {
@@ -51,8 +96,9 @@ item (FEAT_STATIONS, i_test) {
         name:       string(STR_TEST);
     }
     graphics {
-        sprite_layouts: [sp_test(0,0), sp_test(0,0)];
+        sprite_layouts: [sp_test_x(0,0), sp_test_y(0,0)];
         custom_spritesets: [s_test_platform, s_test_shelter];
+        prepare_layout: sw_test();
     }
 }
 
@@ -63,8 +109,9 @@ item (FEAT_STATIONS, i_test_2) {
         name:       string(STR_TEST);
     }
     graphics {
-        sprite_layouts: [sp_test(0,1), sp_test(0,1)];
+        sprite_layouts: [sp_test_x(0,1), sp_test_y(0,1)];
         custom_spritesets: [s_test_platform, s_test_shelter];
+        prepare_layout: sw_test();
     }
 }
 
@@ -75,8 +122,9 @@ item (FEAT_STATIONS, i_test_3) {
         name:       string(STR_TEST);
     }
     graphics {
-        sprite_layouts: [sp_test(1,0), sp_test(1,0)];
+        sprite_layouts: [sp_test_x(1,0), sp_test_y(1,0)];
         custom_spritesets: [s_test_platform, s_test_shelter];
+        prepare_layout: sw_test();
     }
 }
 
@@ -87,7 +135,8 @@ item (FEAT_STATIONS, i_test_4) {
         name:       string(STR_TEST);
     }
     graphics {
-        sprite_layouts: [sp_test(1,1), sp_test(1,1)];
+        sprite_layouts: [sp_test_x(1,1), sp_test_y(1,1)];
         custom_spritesets: [s_test_platform, s_test_shelter];
+        prepare_layout: sw_test();
     }
 }
