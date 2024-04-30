@@ -9,3 +9,17 @@ STR_GRF_URL         :http://www.github.com/openttd-china-set
 # utilities
 STR_TEST            :Test
 STR_OPENTTD         :OpenTTD
+
+# stations
+# here 0 stands for show and 1 stands for hide
+# NPLAT = nothern platform
+# SPLAT = southern platform
+# SHELTER = shelter
+STR_NPLAT_0         :{PUSH_COLOUR}{GREEN}N{POP_COLOUR}
+STR_NPLAT_1         :{PUSH_COLOUR}{RED}N{POP_COLOUR}
+STR_SPLAT_0         :{PUSH_COLOUR}{GREEN}S{POP_COLOUR}
+STR_SPLAT_1         :{PUSH_COLOUR}{RED}S{POP_COLOUR}
+STR_SHELTER_0       :{PUSH_COLOUR}{GREEN}S{POP_COLOUR}
+STR_SHELTER_1       :{PUSH_COLOUR}{RED}S{POP_COLOUR}
+
+STR_STATION_WRAPPER :Platform ({STRING}{STRING}{STRING})
