@@ -1,6 +1,7 @@
 # China Set: Stations README
 
-This repo contains the source code and graphics of CNS China Set: Stations.
+This repo contains the source code and graphics of CNS China Set: Stations.\
+CNS China Set: Stations is the renovated version of [CNSPS China Set: Platforms and Stations](https://www.github.com/openttd-china-set/china-set-platforms-and-stations)
 
 CNS China Set: Stations is licensed under GNU GPL version 2
 
