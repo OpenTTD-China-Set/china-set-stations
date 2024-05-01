@@ -1,4 +1,4 @@
-spriteset (s_test_platform, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
+spriteset (s_platform_0, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
     template_platform_NW("platforms/platform_concrete")
     template_platform_NE("platforms/platform_concrete")
     template_platform_SE("platforms/platform_concrete")
@@ -14,11 +14,34 @@ spriteset (s_test_platform, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
     template_asymplat_SW("asym_platforms/platform_concrete_slope")
 }
 
-spriteset (s_test_shelter, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
+spriteset (s_platform_1, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
+    template_platform_NW("platforms/platform_brick")
+    template_platform_NE("platforms/platform_brick")
+    template_platform_SE("platforms/platform_brick")
+    template_platform_SW("platforms/platform_brick")
+    // asym platforms, soooooo strange
+    template_platform_NW("asym_platforms/platform_brick_slope")
+    template_asymplat_NE("asym_platforms/platform_brick_slope")
+    template_asymplat_SE("asym_platforms/platform_brick_slope")
+    template_platform_SW("asym_platforms/platform_brick_slope")
+    template_asymplat_NW("asym_platforms/platform_brick_slope")
+    template_platform_NE("asym_platforms/platform_brick_slope")
+    template_platform_SE("asym_platforms/platform_brick_slope")
+    template_asymplat_SW("asym_platforms/platform_brick_slope")
+}
+
+spriteset (s_shelter_0, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
     NW: template_platform_zero(0, "shelters/shelter1")
     NE: template_platform_zero(1, "shelters/shelter1")
     SE: template_platform_zero(2, "shelters/shelter1")
     SW: template_platform_zero(3, "shelters/shelter1")
+}
+
+spriteset (s_shelter_1, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
+    NW: template_platform_zero(0, "shelters/shelter2")
+    NE: template_platform_zero(1, "shelters/shelter2")
+    SE: template_platform_zero(2, "shelters/shelter2")
+    SW: template_platform_zero(3, "shelters/shelter2")
 }
 
 spriteset (s_test_bufferstop, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
@@ -108,26 +131,36 @@ switch (FEAT_STATIONS, SELF, sw_test, [
 ])
 {return;}
 
-#define STANDARD_STATION(nplat, splat, shelter) \
-item (FEAT_STATIONS, i_test_##nplat##splat##shelter, nplat << NPLAT_BIT | splat << SPLAT_BIT | shelter << SHELTER_BIT) {\
+#define STANDARD_STATION(hide_nplat, hide_splat, hide_shelter, platform_spriteset, shelter_spriteset, hide_fence) \
+item (FEAT_STATIONS, i_station_##hide_nplat##hide_splat##hide_shelter##platform_spriteset##shelter_spriteset##hide_fence, \
+                    hide_nplat << NPLAT_BIT | hide_splat << SPLAT_BIT | hide_shelter << SHELTER_BIT |\
+                    platform_spriteset << PLATFORM_SPRITESET_BITS | shelter_spriteset << SHELTER_SPRITESET_BITS|\
+                    hide_fence << FENCE_BIT | STANDARD_PLATFORM_BITS) {\
     property {\
         class:      "CNS1";\
         classname:  string(STR_TEST);\
-        name:       string(STR_STATION_WRAPPER,string(STR_NPLAT_##nplat),string(STR_SPLAT_##splat),string(STR_SHELTER_##shelter));\
+        name:       string(STR_STATION_WRAPPER,string(STR_NPLAT_##hide_nplat),string(STR_SPLAT_##hide_splat),string(STR_SHELTER_##hide_shelter));\
     }\
     graphics {\
-        sprite_layouts: [sp_test_x(nplat, splat, shelter), sp_test_y(nplat, splat, shelter)];\
-        custom_spritesets: [s_test_platform, s_test_shelter];\
+        sprite_layouts: [sp_test_x(hide_nplat, hide_splat, hide_shelter), sp_test_y(hide_nplat, hide_splat, hide_shelter)];\
+        custom_spritesets: [s_platform_##platform_spriteset, s_shelter_##shelter_spriteset];\
         prepare_layout: sw_test();\
     }\
 }
 
-STANDARD_STATION(0,0,0)
-STANDARD_STATION(0,1,0)
-STANDARD_STATION(1,0,0)
-STANDARD_STATION(0,0,1)
-STANDARD_STATION(0,1,1)
-STANDARD_STATION(1,0,1)
-STANDARD_STATION(1,1,1)
 
+#define STANDARD_STATION_DEFINES(a,b) \
+STANDARD_STATION(0,0,0,a,b,0)\
+STANDARD_STATION(0,1,0,a,b,0)\
+STANDARD_STATION(1,0,0,a,b,0)\
+STANDARD_STATION(0,0,1,a,b,0)\
+STANDARD_STATION(0,1,1,a,b,0)\
+STANDARD_STATION(1,0,1,a,b,0)\
+
+STANDARD_STATION_DEFINES(0,0)
+STANDARD_STATION_DEFINES(0,1)
+STANDARD_STATION_DEFINES(1,0)
+STANDARD_STATION_DEFINES(1,1)
+
+STANDARD_STATION(1,1,1,0,0,1)
 #undef STANDARD_STATION

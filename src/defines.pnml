@@ -169,7 +169,13 @@
     zextent: FENCE_HEIGHT;\
 
 // platform bit sequence
+// standard platforms
+// example 1111 1111 1111 1111
+#define STANDARD_PLATFORM_BITS 3 << 14
 
-#define NPLAT_BIT 0
-#define SPLAT_BIT 1
-#define SHELTER_BIT 2
+#define NPLAT_BIT 0                         // 0 only
+#define SPLAT_BIT 1                         // 1 only
+#define SHELTER_BIT 2                       // 2 only
+#define PLATFORM_SPRITESET_BITS 3           // 3 and 4
+#define SHELTER_SPRITESET_BITS 5            // 5 and 6
+#define FENCE_BIT 7                         // 7 only
