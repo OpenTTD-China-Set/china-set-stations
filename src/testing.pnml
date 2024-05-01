@@ -41,22 +41,22 @@ spritelayout sp_test_x(hide_platform_nw, hide_platform_se, hide_shelter) {
         hide_sprite: getbits(LOAD_TEMP(0), 1, 1);
     }
     building { // station platform, macro is used to define the bounding box.
-        sprite: CUSTOM(0, 0 + LOAD_TEMP(1) % 3 * 4);
+        sprite: CUSTOM(0, 0 + (getbits(LOAD_TEMP(3), NPLAT_BIT, 1) << 0 | getbits(LOAD_TEMP(2), NPLAT_BIT, 1) << 1) % 3 * 4);
         PLATFORM_BBOX_NW // macro
         hide_sprite: hide_platform_nw;
     }
     childsprite { // shelter
         sprite: CUSTOM(1, 0);
-        hide_sprite: !!(LOAD_TEMP(1) % 3) || hide_shelter;
+        hide_sprite: !!((getbits(LOAD_TEMP(3), NPLAT_BIT, 1) << 0 | getbits(LOAD_TEMP(2), NPLAT_BIT, 1) << 1) % 3) || hide_shelter;
     }
     building {
-        sprite: CUSTOM(0, 2 + LOAD_TEMP(1) % 3 * 4);
+        sprite: CUSTOM(0, 2 + (getbits(LOAD_TEMP(3), SPLAT_BIT, 1) << 0 | getbits(LOAD_TEMP(2), SPLAT_BIT, 1) << 1) % 3 * 4);
         PLATFORM_BBOX_SE // macro
         hide_sprite: hide_platform_se;
     }
     childsprite {
         sprite: CUSTOM(1, 2);
-        hide_sprite: !!(LOAD_TEMP(1) % 3) || hide_shelter;
+        hide_sprite: !!((getbits(LOAD_TEMP(3), SPLAT_BIT, 1) << 0 | getbits(LOAD_TEMP(2), SPLAT_BIT, 1) << 1) % 3) || hide_shelter;
     }
 }
 
@@ -73,22 +73,22 @@ spritelayout sp_test_y(hide_platform_ne, hide_platform_sw, hide_shelter) {
         hide_sprite: getbits(LOAD_TEMP(0), 1, 1);
     }
     building { // station platform, macros are still used
-        sprite: CUSTOM(0, 1 + LOAD_TEMP(1) % 3 * 4);
+        sprite: CUSTOM(0, 1 + (getbits(LOAD_TEMP(3), NPLAT_BIT, 1) << 0 | getbits(LOAD_TEMP(2), NPLAT_BIT, 1) << 1) % 3 * 4);
         PLATFORM_BBOX_NE // macro
         hide_sprite: hide_platform_ne;
     }
     childsprite {
         sprite: CUSTOM(1, 1);
-        hide_sprite: !!(LOAD_TEMP(1) % 3) || hide_shelter;
+        hide_sprite: !!((getbits(LOAD_TEMP(3), NPLAT_BIT, 1) << 0 | getbits(LOAD_TEMP(2), NPLAT_BIT, 1) << 1) % 3) || hide_shelter;
     }
     building {
-        sprite: CUSTOM(0, 3 + LOAD_TEMP(1) % 3 * 4);
+        sprite: CUSTOM(0, 3 + (getbits(LOAD_TEMP(3), SPLAT_BIT, 1) << 0 | getbits(LOAD_TEMP(2), SPLAT_BIT, 1) << 1) % 3 * 4);
         PLATFORM_BBOX_SW // macro
         hide_sprite: hide_platform_sw;
     }
     childsprite {
         sprite: CUSTOM(1, 3);
-        hide_sprite: !!(LOAD_TEMP(1) % 3) || hide_shelter;
+        hide_sprite: !!((getbits(LOAD_TEMP(3), SPLAT_BIT, 1) << 0 | getbits(LOAD_TEMP(2), SPLAT_BIT, 1) << 1) % 3) || hide_shelter;
     }
 }
 /* about registers
@@ -101,11 +101,15 @@ switch (FEAT_STATIONS, SELF, sw_test, [
                hasbit(rail_continuation, 0) << 1, 0),
     STORE_TEMP(nearby_tile_is_station(-1,0) << 0|
                nearby_tile_is_station( 1,0) << 1, 1),
+    STORE_TEMP(nearby_tile_station_id(-1,0), 2),
+    STORE_TEMP(nearby_tile_station_id( 1,0), 3),
+    STORE_TEMP(nearby_tile_station_id(0,-1), 4),
+    STORE_TEMP(nearby_tile_station_id(0, 1), 5),
 ])
 {return;}
 
 #define STANDARD_STATION(nplat, splat, shelter) \
-item (FEAT_STATIONS, i_test_##nplat##splat##shelter) {\
+item (FEAT_STATIONS, i_test_##nplat##splat##shelter, nplat << 0 | splat << 1 | shelter << 2) {\
     property {\
         class:      "CNS1";\
         classname:  string(STR_TEST);\
@@ -118,12 +122,12 @@ item (FEAT_STATIONS, i_test_##nplat##splat##shelter) {\
     }\
 }
 
-STANDARD_STATION(1,1,1)
 STANDARD_STATION(0,0,0)
 STANDARD_STATION(0,1,0)
 STANDARD_STATION(1,0,0)
 STANDARD_STATION(0,0,1)
 STANDARD_STATION(0,1,1)
 STANDARD_STATION(1,0,1)
+STANDARD_STATION(1,1,1)
 
 #undef STANDARD_STATION

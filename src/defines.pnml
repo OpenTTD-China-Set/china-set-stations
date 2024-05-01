@@ -168,3 +168,8 @@
     yextent: 0;\
     zextent: FENCE_HEIGHT;\
 
+// platform bit sequence
+
+#define NPLAT_BIT 0
+#define SPLAT_BIT 1
+#define SHELTER_BIT 2
