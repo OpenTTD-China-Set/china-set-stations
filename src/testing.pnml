@@ -109,7 +109,7 @@ switch (FEAT_STATIONS, SELF, sw_test, [
 {return;}
 
 #define STANDARD_STATION(nplat, splat, shelter) \
-item (FEAT_STATIONS, i_test_##nplat##splat##shelter, nplat << 0 | splat << 1 | shelter << 2) {\
+item (FEAT_STATIONS, i_test_##nplat##splat##shelter, nplat << NPLAT_BIT | splat << SPLAT_BIT | shelter << SHELTER_BIT) {\
     property {\
         class:      "CNS1";\
         classname:  string(STR_TEST);\
