@@ -238,7 +238,7 @@ item (FEAT_STATIONS, i_station_##hide_nplat##hide_splat##hide_shelter##platform_
                     STANDARD_PLATFORM_BITS) {\
     property {\
         class:      "CNS1";\
-        classname:  string(STR_TEST);\
+        classname:  string(STR_PLATFORMS);\
         name:       string(STR_STATION_WRAPPER,string(STR_NPLAT_##hide_nplat),string(STR_SPLAT_##hide_splat),string(STR_SHELTER_##hide_shelter));\
     }\
     graphics {\
@@ -253,14 +253,12 @@ item (FEAT_STATIONS, i_station_##hide_nplat##hide_splat##hide_shelter##platform_
 STANDARD_STATION(0,0,0,a,b)\
 STANDARD_STATION(0,1,0,a,b)\
 STANDARD_STATION(1,0,0,a,b)\
-STANDARD_STATION(0,0,1,a,b)\
-STANDARD_STATION(0,1,1,a,b)\
-STANDARD_STATION(1,0,1,a,b)\
 
 STANDARD_STATION_DEFINES(0,0)
 STANDARD_STATION_DEFINES(0,1)
-STANDARD_STATION_DEFINES(1,0)
-STANDARD_STATION_DEFINES(1,1)
+STANDARD_STATION(0,0,1,0,1)\
+STANDARD_STATION(0,1,1,0,1)\
+STANDARD_STATION(1,0,1,0,1)\
 
 STANDARD_STATION(1,1,1,0,0)
 
