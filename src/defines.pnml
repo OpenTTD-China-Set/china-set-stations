@@ -171,6 +171,8 @@
 // platform bit sequence
 // standard platforms
 // example 1111 1111 1111 1111
+//         ^^ platform type
+
 #define STANDARD_PLATFORM_BITS 3 << 14
 
 #define NPLAT_BIT 0                         // 0 only
@@ -178,4 +180,3 @@
 #define SHELTER_BIT 2                       // 2 only
 #define PLATFORM_SPRITESET_BITS 3           // 3 and 4
 #define SHELTER_SPRITESET_BITS 5            // 5 and 6
-#define FENCE_BIT 7                         // 7 only

@@ -85,13 +85,13 @@ spriteset (s_test_fence, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
     SW: template_fence_SW("fences/fence1")
 }*/
 
-#define GET_NPLAT_FORMATION(sid, nid) \
-    ((getbits(sid, NPLAT_BIT, 1) | getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1)) << 0|\
-     (getbits(nid, NPLAT_BIT, 1) | getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1)) << 1)
+#define GET_NPLAT_FORMATION \
+    ((getbits(LOAD_TEMP(TILE_X_SW), NPLAT_BIT, 1) | getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1)) << 0|\
+     (getbits(LOAD_TEMP(TILE_X_NE), NPLAT_BIT, 1) | getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1)) << 1)
 
-#define GET_SPLAT_FORMATION(sid, nid) \
-    ((getbits(sid, SPLAT_BIT, 1) | getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1)) << 0|\
-     (getbits(nid, SPLAT_BIT, 1) | getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1)) << 1)
+#define GET_SPLAT_FORMATION \
+    ((getbits(LOAD_TEMP(TILE_X_SW), SPLAT_BIT, 1) | getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1)) << 0|\
+     (getbits(LOAD_TEMP(TILE_X_NE), SPLAT_BIT, 1) | getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1)) << 1)
 
 spritelayout sp_test_x(hide_platform_nw, hide_platform_se, hide_shelter) {
     ground {sprite: GROUNDSPRITE_RAIL_X;}
@@ -116,22 +116,22 @@ spritelayout sp_test_x(hide_platform_nw, hide_platform_se, hide_shelter) {
         hide_sprite: getbits(LOAD_TEMP(10), 3, 1);
     }*/
     building { // station platform, macro is used to define the bounding box.
-        sprite: CUSTOM(0, 0 + GET_NPLAT_FORMATION(LOAD_TEMP(TILE_X_SW), LOAD_TEMP(TILE_X_NE)) % 3 * 4);
+        sprite: CUSTOM(0, 0 + GET_NPLAT_FORMATION % 3 * 4);
         PLATFORM_BBOX_NW // macro
         hide_sprite: hide_platform_nw;
     }
     childsprite { // shelter
         sprite: CUSTOM(1, 0);
-        hide_sprite: !!(GET_NPLAT_FORMATION(LOAD_TEMP(TILE_X_SW), LOAD_TEMP(TILE_X_NE)) % 3) || hide_shelter;
+        hide_sprite: !!(GET_NPLAT_FORMATION % 3) || hide_shelter;
     }
     building {
-        sprite: CUSTOM(0, 2 + GET_SPLAT_FORMATION(LOAD_TEMP(TILE_X_SW), LOAD_TEMP(TILE_X_NE)) % 3 * 4);
+        sprite: CUSTOM(0, 2 + GET_SPLAT_FORMATION % 3 * 4);
         PLATFORM_BBOX_SE // macro
         hide_sprite: hide_platform_se;
     }
     childsprite {
         sprite: CUSTOM(1, 2);
-        hide_sprite: !!(GET_SPLAT_FORMATION(LOAD_TEMP(TILE_X_SW), LOAD_TEMP(TILE_X_NE)) % 3) || hide_shelter;
+        hide_sprite: !!(GET_SPLAT_FORMATION % 3) || hide_shelter;
     }
 }
 
@@ -158,22 +158,22 @@ spritelayout sp_test_y(hide_platform_ne, hide_platform_sw, hide_shelter) {
         hide_sprite: getbits(LOAD_TEMP(10), 3, 1);
     }*/
     building { // station platform, macros are still used
-        sprite: CUSTOM(0, 1 + GET_NPLAT_FORMATION(LOAD_TEMP(TILE_X_SW), LOAD_TEMP(TILE_X_NE)) % 3 * 4);
+        sprite: CUSTOM(0, 1 + GET_NPLAT_FORMATION % 3 * 4);
         PLATFORM_BBOX_NE // macro
         hide_sprite: hide_platform_ne;
     }
     childsprite {
         sprite: CUSTOM(1, 1);
-        hide_sprite: !!(GET_NPLAT_FORMATION(LOAD_TEMP(TILE_X_SW), LOAD_TEMP(TILE_X_NE)) % 3) || hide_shelter;
+        hide_sprite: !!(GET_NPLAT_FORMATION % 3) || hide_shelter;
     }
     building {
-        sprite: CUSTOM(0, 3 + GET_NPLAT_FORMATION(LOAD_TEMP(TILE_X_SW), LOAD_TEMP(TILE_X_NE)) % 3 * 4);
+        sprite: CUSTOM(0, 3 + GET_SPLAT_FORMATION % 3 * 4);
         PLATFORM_BBOX_SW // macro
         hide_sprite: hide_platform_sw;
     }
     childsprite {
         sprite: CUSTOM(1, 3);
-        hide_sprite: !!(GET_NPLAT_FORMATION(LOAD_TEMP(TILE_X_SW), LOAD_TEMP(TILE_X_NE)) % 3) || hide_shelter;
+        hide_sprite: !!(GET_SPLAT_FORMATION % 3) || hide_shelter;
     }
 }
 /* about registers
@@ -292,6 +292,4 @@ STANDARD_STATION(1,1,1,0,0)
 
 #undef GET_NPLAT_FORMATION
 #undef GET_SPLAT_FORMATION
-#undef NFENCE_HIDE
-#undef SFENCE_HIDE
 
