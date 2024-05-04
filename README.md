@@ -7,7 +7,7 @@ CNS China Set: Stations is licensed under GNU GPL version 2
 
 ## Building
 
-You should have a `bash` environment, which should come with `git` on if you are using Windows. **Please do not use Windows Powershell or Command Prompt to build the grf.**
+You should have a `bash` environment, which should come with `git` if you are using Windows. **Please do not use Windows Powershell or Command Prompt to build the grf.**
 
 The following subjects are required to build the grf:
 
