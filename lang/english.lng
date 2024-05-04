@@ -3,7 +3,7 @@
 
 # basic information
 STR_GRF_NAME        :China Set: Stations {PUSH_COLOUR}{WHITE}{VERSION}{POP_COLOUR}
-STR_GRF_DESC        :{PUSH_COLOUR}{WHITE}{TIME}, Git: {GITNUM}{POP_COLOUR}{}Set of Chinese themed stations. Made by WenSim and the China Set team.
+STR_GRF_DESC        :{}{PUSH_COLOUR}{GOLD}China {POP_COLOUR}{PUSH_COLOUR}{RED}Set{POP_COLOUR}: Stations {PUSH_COLOUR}{WHITE}{VERSION}{POP_COLOUR}{}{}Set of Chinese themed stations. Made by WenSim and the China Set team.{}{}{PUSH_COLOUR}{WHITE}Contributors:{POP_COLOUR}{}WenSim{}{}{PUSH_COLOUR}{WHITE}{TIME}, Git: {GITNUM}{POP_COLOUR}
 STR_GRF_URL         :http://www.github.com/openttd-china-set
 
 # utilities
@@ -15,6 +15,8 @@ STR_OPENTTD         :OpenTTD
 # NPLAT = nothern platform
 # SPLAT = southern platform
 # SHELTER = shelter
+STR_PLATFORMS       :CNS: Platforms
+
 STR_NPLAT_0         :{PUSH_COLOUR}{GREEN}N{POP_COLOUR}
 STR_NPLAT_1         :{PUSH_COLOUR}{RED}N{POP_COLOUR}
 STR_SPLAT_0         :{PUSH_COLOUR}{GREEN}S{POP_COLOUR}
