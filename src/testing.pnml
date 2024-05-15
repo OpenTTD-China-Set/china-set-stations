@@ -86,12 +86,12 @@ spriteset (s_test_fence, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
 }*/
 
 #define GET_NPLAT_FORMATION \
-    ((getbits(LOAD_TEMP(TILE_X_SW), NPLAT_BIT, 1) | getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1)) << 0|\
-     (getbits(LOAD_TEMP(TILE_X_NE), NPLAT_BIT, 1) | getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1)) << 1)
+    ((getbits(LOAD_TEMP(TILE_X_SW), NPLAT_BIT, 1) ^ getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1)) << 0|\
+     (getbits(LOAD_TEMP(TILE_X_NE), NPLAT_BIT, 1) ^ getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1)) << 1)
 
 #define GET_SPLAT_FORMATION \
-    ((getbits(LOAD_TEMP(TILE_X_SW), SPLAT_BIT, 1) | getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1)) << 0|\
-     (getbits(LOAD_TEMP(TILE_X_NE), SPLAT_BIT, 1) | getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1)) << 1)
+    ((getbits(LOAD_TEMP(TILE_X_SW), SPLAT_BIT, 1) ^ getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1)) << 0|\
+     (getbits(LOAD_TEMP(TILE_X_NE), SPLAT_BIT, 1) ^ getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1)) << 1)
 
 spritelayout sp_test_x(hide_platform_nw, hide_platform_se, hide_shelter) {
     ground {sprite: GROUNDSPRITE_RAIL_X;}
@@ -177,7 +177,7 @@ spritelayout sp_test_y(hide_platform_ne, hide_platform_sw, hide_shelter) {
     }
 }
 /* about registers
- * 
+ *
  */
 switch (FEAT_STATIONS, SELF, sw_check_rail_continuation,
         hasbit(rail_continuation, 1) << TILE_X_NE|
@@ -185,34 +185,34 @@ switch (FEAT_STATIONS, SELF, sw_check_rail_continuation,
 
 
 switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_station,
-        nearby_tile_is_station(-1, 0) << TILE_X_NE|
-        nearby_tile_is_station( 1, 0) << TILE_X_SW|
-        nearby_tile_is_station( 0,-1) << TILE_X_NW|
-        nearby_tile_is_station( 0, 1) << TILE_X_SE|
-        nearby_tile_is_station(-1,-1) << TILE_X_N|
-        nearby_tile_is_station( 1, 1) << TILE_X_S|
-        nearby_tile_is_station( 1,-1) << TILE_X_W|
-        nearby_tile_is_station(-1, 1) << TILE_X_E) {return;}
+        (nearby_tile_is_station(-1, 0) == 1) << TILE_X_NE|
+        (nearby_tile_is_station( 1, 0) == 1) << TILE_X_SW|
+        (nearby_tile_is_station( 0,-1) == 1) << TILE_X_NW|
+        (nearby_tile_is_station( 0, 1) == 1) << TILE_X_SE|
+        (nearby_tile_is_station(-1,-1) == 1) << TILE_X_N|
+        (nearby_tile_is_station( 1, 1) == 1) << TILE_X_S|
+        (nearby_tile_is_station( 1,-1) == 1) << TILE_X_W|
+        (nearby_tile_is_station(-1, 1) == 1) << TILE_X_E) {return;}
 
 switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_perpendicular,
-        nearby_tile_perpendicular(-1, 0) << TILE_X_NE|
-        nearby_tile_perpendicular( 1, 0) << TILE_X_SW|
-        nearby_tile_perpendicular( 0,-1) << TILE_X_NW|
-        nearby_tile_perpendicular( 0, 1) << TILE_X_SE|
-        nearby_tile_perpendicular(-1,-1) << TILE_X_N|
-        nearby_tile_perpendicular( 1, 1) << TILE_X_S|
-        nearby_tile_perpendicular( 1,-1) << TILE_X_W|
-        nearby_tile_perpendicular(-1, 1) << TILE_X_E) {return;}
+        (nearby_tile_perpendicular(-1, 0) == 1) << TILE_X_NE|
+        (nearby_tile_perpendicular( 1, 0) == 1) << TILE_X_SW|
+        (nearby_tile_perpendicular( 0,-1) == 1) << TILE_X_NW|
+        (nearby_tile_perpendicular( 0, 1) == 1) << TILE_X_SE|
+        (nearby_tile_perpendicular(-1,-1) == 1) << TILE_X_N|
+        (nearby_tile_perpendicular( 1, 1) == 1) << TILE_X_S|
+        (nearby_tile_perpendicular( 1,-1) == 1) << TILE_X_W|
+        (nearby_tile_perpendicular(-1, 1) == 1) << TILE_X_E) {return;}
 
 switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_grf,
-        nearby_tile_same_grf(-1, 0) << TILE_X_NE|
-        nearby_tile_same_grf( 1, 0) << TILE_X_SW|
-        nearby_tile_same_grf( 0,-1) << TILE_X_NW|
-        nearby_tile_same_grf( 0, 1) << TILE_X_SE|
-        nearby_tile_same_grf(-1,-1) << TILE_X_N|
-        nearby_tile_same_grf( 1, 1) << TILE_X_S|
-        nearby_tile_same_grf( 1,-1) << TILE_X_W|
-        nearby_tile_same_grf(-1, 1) << TILE_X_E) {return;}
+        (nearby_tile_same_grf(-1, 0) == 1) << TILE_X_NE|
+        (nearby_tile_same_grf( 1, 0) == 1) << TILE_X_SW|
+        (nearby_tile_same_grf( 0,-1) == 1) << TILE_X_NW|
+        (nearby_tile_same_grf( 0, 1) == 1) << TILE_X_SE|
+        (nearby_tile_same_grf(-1,-1) == 1) << TILE_X_N|
+        (nearby_tile_same_grf( 1, 1) == 1) << TILE_X_S|
+        (nearby_tile_same_grf( 1,-1) == 1) << TILE_X_W|
+        (nearby_tile_same_grf(-1, 1) == 1) << TILE_X_E) {return;}
 
 switch (FEAT_STATIONS, SELF, sw_test, [
     STORE_TEMP(sw_check_rail_continuation(), TEMP_RAIL_CONTINUATION),

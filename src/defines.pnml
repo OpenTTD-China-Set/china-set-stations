@@ -175,7 +175,7 @@
 
 #define STANDARD_PLATFORM_BITS 3 << 14
 
-#define NPLAT_BIT 0                         // 0 only
+#define NPLAT_BIT 7                         // 0 only
 #define SPLAT_BIT 1                         // 1 only
 #define SHELTER_BIT 2                       // 2 only
 #define PLATFORM_SPRITESET_BITS 3           // 3 and 4
