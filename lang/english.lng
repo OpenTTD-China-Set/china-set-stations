@@ -3,7 +3,7 @@
 
 # basic information
 STR_GRF_NAME        :China Set: Stations {PUSH_COLOUR}{WHITE}{VERSION}{POP_COLOUR}
-STR_GRF_DESC        :{}{PUSH_COLOUR}{GOLD}China {POP_COLOUR}{PUSH_COLOUR}{RED}Set{POP_COLOUR}: Stations {PUSH_COLOUR}{WHITE}{VERSION}{POP_COLOUR}{}{}Set of Chinese themed stations. Made by WenSim and the China Set team.{}{}{PUSH_COLOUR}{WHITE}Contributors:{POP_COLOUR}{}WenSim{}{}{PUSH_COLOUR}{WHITE}{TIME}, Git: {GITNUM}{POP_COLOUR}
+STR_GRF_DESC        :{}{PUSH_COLOUR}{GOLD}China {POP_COLOUR}{PUSH_COLOUR}{RED}Set{POP_COLOUR}: Stations {PUSH_COLOUR}{WHITE}{VERSION}{POP_COLOUR}{}{}Set of Chinese themed stations. Made by WenSim and the China Set team.{}{}{PUSH_COLOUR}{WHITE}Contributors:{POP_COLOUR}{}WenSim{}Ahyangyi{}{}{PUSH_COLOUR}{WHITE}{TIME}, Git: {GITNUM}{POP_COLOUR}
 STR_GRF_URL         :http://www.github.com/openttd-china-set
 
 # utilities

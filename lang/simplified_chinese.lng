@@ -3,7 +3,7 @@
 
 # basic information
 STR_GRF_NAME        :中国包：车站 {PUSH_COLOUR}{WHITE}{VERSION}{POP_COLOUR}
-STR_GRF_DESC        :{}{PUSH_COLOUR}{GOLD}中国{POP_COLOUR}{PUSH_COLOUR}{RED}包{POP_COLOUR}：车站 {PUSH_COLOUR}{WHITE}{VERSION}{POP_COLOUR}{}{}中国主题车站套装。由 WenSim 和中国包团队制作。{}{}{PUSH_COLOUR}{WHITE}贡献者:{POP_COLOUR}{}WenSim{}{}{PUSH_COLOUR}{WHITE}{TIME}, Git: {GITNUM}{POP_COLOUR}
+STR_GRF_DESC        :{}{PUSH_COLOUR}{GOLD}中国{POP_COLOUR}{PUSH_COLOUR}{RED}包{POP_COLOUR}：车站 {PUSH_COLOUR}{WHITE}{VERSION}{POP_COLOUR}{}{}中国主题车站套装。由 WenSim 和中国包团队制作。{}{}{PUSH_COLOUR}{WHITE}贡献者:{POP_COLOUR}{}WenSim{}Ahyangyi{}{}{PUSH_COLOUR}{WHITE}{TIME}, Git: {GITNUM}{POP_COLOUR}
 STR_GRF_URL         :http://www.github.com/openttd-china-set
 
 # utilities
