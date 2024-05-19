@@ -24,51 +24,37 @@
 #define TEMP_NEARBY_TILE_PERPENDICULAR 11
 #define TEMP_NEARBY_TILE_GRF 12
 
-spriteset (s_platform_0, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
-    template_platform_NW("platforms/platform_concrete")
-    template_platform_NE("platforms/platform_concrete")
-    template_platform_SE("platforms/platform_concrete")
-    template_platform_SW("platforms/platform_concrete")
-    // asym platforms, soooooo strange
-    template_platform_NW("asym_platforms/platform_concrete_slope")
-    template_asymplat_NE("asym_platforms/platform_concrete_slope")
-    template_asymplat_SE("asym_platforms/platform_concrete_slope")
-    template_platform_SW("asym_platforms/platform_concrete_slope")
-    template_asymplat_NW("asym_platforms/platform_concrete_slope")
-    template_platform_NE("asym_platforms/platform_concrete_slope")
-    template_platform_SE("asym_platforms/platform_concrete_slope")
-    template_asymplat_SW("asym_platforms/platform_concrete_slope")
+#define NORMAL_PLATFORM_SPRITESET(num, name)\
+spriteset (s_platform_##num, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {\
+    template_platform_NW("platforms/" + name)\
+    template_platform_NE("platforms/" + name)\
+    template_platform_SE("platforms/" + name)\
+    template_platform_SW("platforms/" + name)\
+    \
+    template_platform_NW("asym_platforms/" + name + "_slope")\
+    template_asymplat_NE("asym_platforms/" + name + "_slope")\
+    template_asymplat_SE("asym_platforms/" + name + "_slope")\
+    template_platform_SW("asym_platforms/" + name + "_slope")\
+    \
+    template_asymplat_NW("asym_platforms/" + name + "_slope")\
+    template_platform_NE("asym_platforms/" + name + "_slope")\
+    template_platform_SE("asym_platforms/" + name + "_slope")\
+    template_asymplat_SW("asym_platforms/" + name + "_slope")\
 }
 
-spriteset (s_platform_1, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
-    template_platform_NW("platforms/platform_brick")
-    template_platform_NE("platforms/platform_brick")
-    template_platform_SE("platforms/platform_brick")
-    template_platform_SW("platforms/platform_brick")
-    // asym platforms, soooooo strange
-    template_platform_NW("asym_platforms/platform_brick_slope")
-    template_asymplat_NE("asym_platforms/platform_brick_slope")
-    template_asymplat_SE("asym_platforms/platform_brick_slope")
-    template_platform_SW("asym_platforms/platform_brick_slope")
-    template_asymplat_NW("asym_platforms/platform_brick_slope")
-    template_platform_NE("asym_platforms/platform_brick_slope")
-    template_platform_SE("asym_platforms/platform_brick_slope")
-    template_asymplat_SW("asym_platforms/platform_brick_slope")
+#define SHELTER_SPRITESET(num, name)\
+spriteset (s_shelter_##num, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {\
+    NW: template_platform_zero(0, "shelters/" + name)\
+    NE: template_platform_zero(1, "shelters/" + name)\
+    SE: template_platform_zero(2, "shelters/" + name)\
+    SW: template_platform_zero(3, "shelters/" + name)\
 }
 
-spriteset (s_shelter_0, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
-    NW: template_platform_zero(0, "shelters/shelter1")
-    NE: template_platform_zero(1, "shelters/shelter1")
-    SE: template_platform_zero(2, "shelters/shelter1")
-    SW: template_platform_zero(3, "shelters/shelter1")
-}
+NORMAL_PLATFORM_SPRITESET(0, "platform_concrete")
+NORMAL_PLATFORM_SPRITESET(1, "platform_brick")
 
-spriteset (s_shelter_1, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
-    NW: template_platform_zero(0, "shelters/shelter2")
-    NE: template_platform_zero(1, "shelters/shelter2")
-    SE: template_platform_zero(2, "shelters/shelter2")
-    SW: template_platform_zero(3, "shelters/shelter2")
-}
+SHELTER_SPRITESET(0, "shelter1")
+SHELTER_SPRITESET(1, "shelter2")
 
 spriteset (s_test_bufferstop, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
     NW: template_bufferstop_NW("extras/bufferstop")
@@ -93,28 +79,18 @@ spriteset (s_test_fence, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
     ((!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_SW, 1) | getbits(LOAD_TEMP(TILE_X_SW), SPLAT_BIT, 1) & getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_SW, 1)) << 0|\
      (!getbits(LOAD_TEMP(TEMP_NEARBY_TILE_STATION), TILE_X_NE, 1) | getbits(LOAD_TEMP(TILE_X_NE), SPLAT_BIT, 1) & getbits(LOAD_TEMP(TEMP_NEARBY_TILE_GRF), TILE_X_NE, 1)) << 1)
 
-spritelayout sp_test_x(hide_platform_nw, hide_platform_se, hide_shelter) {
-    ground {sprite: GROUNDSPRITE_RAIL_X;}
+spritelayout sp_test_x(hide_platform_nw, hide_platform_se, hide_shelter, ground_type) {
+    ground {sprite: ground_type == 1? GROUNDSPRITE_NORMAL: ground_type == 2? GROUNDSPRITE_CONCRETE: GROUNDSPRITE_RAIL_X;}
     building { // bufferstop
         sprite: s_test_bufferstop(NE);
         BUFFERSTOP_BBOX_NE // macro
-        hide_sprite: getbits(LOAD_TEMP(TEMP_RAIL_CONTINUATION), TILE_X_NE, 1);
+        hide_sprite: getbits(LOAD_TEMP(TEMP_RAIL_CONTINUATION), TILE_X_NE, 1) || ground_type;
     }
     building { // bufferstop
         sprite: s_test_bufferstop(SW);
         BUFFERSTOP_BBOX_SW // macro
-        hide_sprite: getbits(LOAD_TEMP(TEMP_RAIL_CONTINUATION), TILE_X_SW, 1);
-    }/*
-    building { // fence
-        sprite: s_test_fence(NW);
-        FENCE_BBOX_NW
-        hide_sprite: getbits(LOAD_TEMP(10), 2 ,1);
+        hide_sprite: getbits(LOAD_TEMP(TEMP_RAIL_CONTINUATION), TILE_X_SW, 1) || ground_type;
     }
-    building { // fence
-        sprite: s_test_fence(SE);
-        FENCE_BBOX_SE
-        hide_sprite: getbits(LOAD_TEMP(10), 3, 1);
-    }*/
     building { // station platform, macro is used to define the bounding box.
         sprite: CUSTOM(0, 0 + GET_NPLAT_FORMATION % 3 * 4);
         PLATFORM_BBOX_NW // macro
@@ -135,28 +111,18 @@ spritelayout sp_test_x(hide_platform_nw, hide_platform_se, hide_shelter) {
     }
 }
 
-spritelayout sp_test_y(hide_platform_ne, hide_platform_sw, hide_shelter) {
-    ground {sprite: GROUNDSPRITE_RAIL_Y;}
+spritelayout sp_test_y(hide_platform_ne, hide_platform_sw, hide_shelter, ground_type) {
+    ground {sprite: ground_type == 1? GROUNDSPRITE_NORMAL: ground_type == 2? GROUNDSPRITE_CONCRETE: GROUNDSPRITE_RAIL_Y;}
     building {
         sprite: s_test_bufferstop(NW);
         BUFFERSTOP_BBOX_NW // macro
-        hide_sprite: getbits(LOAD_TEMP(TEMP_RAIL_CONTINUATION), TILE_X_NE, 1);
+        hide_sprite: getbits(LOAD_TEMP(TEMP_RAIL_CONTINUATION), TILE_X_NE, 1) || ground_type;
     }
     building {
         sprite: s_test_bufferstop(SE);
         BUFFERSTOP_BBOX_SE // macro
-        hide_sprite: getbits(LOAD_TEMP(TEMP_RAIL_CONTINUATION), TILE_X_SW, 1);
-    }/*
-    building {
-        sprite: s_test_fence(NE);
-        FENCE_BBOX_NE
-        hide_sprite: getbits(LOAD_TEMP(10), 2, 1);
+        hide_sprite: getbits(LOAD_TEMP(TEMP_RAIL_CONTINUATION), TILE_X_SW, 1) || ground_type;
     }
-    building {
-        sprite: s_test_fence(SW);
-        FENCE_BBOX_SW
-        hide_sprite: getbits(LOAD_TEMP(10), 3, 1);
-    }*/
     building { // station platform, macros are still used
         sprite: CUSTOM(0, 1 + GET_NPLAT_FORMATION % 3 * 4);
         PLATFORM_BBOX_NE // macro
@@ -195,14 +161,16 @@ switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_station,
         nearby_tile_is_station(-1, 1) << TILE_X_E) {return;}
 
 switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_perpendicular,
-        (nearby_tile_perpendicular(-1, 0) == 1) << TILE_X_NE|
-        (nearby_tile_perpendicular( 1, 0) == 1) << TILE_X_SW|
-        (nearby_tile_perpendicular( 0,-1) == 1) << TILE_X_NW|
-        (nearby_tile_perpendicular( 0, 1) == 1) << TILE_X_SE|
-        (nearby_tile_perpendicular(-1,-1) == 1) << TILE_X_N|
-        (nearby_tile_perpendicular( 1, 1) == 1) << TILE_X_S|
-        (nearby_tile_perpendicular( 1,-1) == 1) << TILE_X_W|
-        (nearby_tile_perpendicular(-1, 1) == 1) << TILE_X_E) {return;}
+        nearby_tile_perpendicular(-1, 0) == 1 << TILE_X_NE|
+        nearby_tile_perpendicular( 1, 0) == 1 << TILE_X_SW|
+        nearby_tile_perpendicular( 0,-1) == 1 << TILE_X_NW|
+        nearby_tile_perpendicular( 0, 1) == 1 << TILE_X_SE|
+        nearby_tile_perpendicular(-1,-1) == 1 << TILE_X_N|
+        nearby_tile_perpendicular( 1, 1) == 1 << TILE_X_S|
+        nearby_tile_perpendicular( 1,-1) == 1 << TILE_X_W|
+        nearby_tile_perpendicular(-1, 1) == 1 << TILE_X_E) {return;}
+
+//TODO: if openttd/nml #330 is merged, change "other" to "same"
 
 switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_grf,
         nearby_tile_other_grf(-1, 0) << TILE_X_NE|
@@ -213,6 +181,16 @@ switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_grf,
         nearby_tile_other_grf( 1, 1) << TILE_X_S|
         nearby_tile_other_grf( 1,-1) << TILE_X_W|
         nearby_tile_other_grf(-1, 1) << TILE_X_E) {return;}
+
+//switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_grf,
+//        nearby_tile_same_grf(-1, 0) << TILE_X_NE|
+//        nearby_tile_same_grf( 1, 0) << TILE_X_SW|
+//        nearby_tile_same_grf( 0,-1) << TILE_X_NW|
+//        nearby_tile_same_grf( 0, 1) << TILE_X_SE|
+//        nearby_tile_same_grf(-1,-1) << TILE_X_N|
+//        nearby_tile_same_grf( 1, 1) << TILE_X_S|
+//        nearby_tile_same_grf( 1,-1) << TILE_X_W|
+//        nearby_tile_same_grf(-1, 1) << TILE_X_E) {return;}
 
 switch (FEAT_STATIONS, SELF, sw_test, [
     STORE_TEMP(sw_check_rail_continuation(), TEMP_RAIL_CONTINUATION),
@@ -234,7 +212,7 @@ switch (FEAT_STATIONS, SELF, sw_test, [
 #define STANDARD_STATION(hide_nplat, hide_splat, hide_shelter, platform_spriteset, shelter_spriteset) \
 item (FEAT_STATIONS, i_station_##hide_nplat##hide_splat##hide_shelter##platform_spriteset##shelter_spriteset, \
                     hide_nplat << NPLAT_BIT | hide_splat << SPLAT_BIT | hide_shelter << SHELTER_BIT |\
-                    platform_spriteset << PLATFORM_SPRITESET_BITS | shelter_spriteset << SHELTER_SPRITESET_BITS|\
+                    platform_spriteset << PLATFORM_SPRITESET_BITS | shelter_spriteset << SHELTER_SPRITESET_BITS |\
                     STANDARD_PLATFORM_BITS) {\
     property {\
         class:      "CNS1";\
@@ -242,25 +220,61 @@ item (FEAT_STATIONS, i_station_##hide_nplat##hide_splat##hide_shelter##platform_
         name:       string(STR_STATION_WRAPPER,string(STR_NPLAT_##hide_nplat),string(STR_SPLAT_##hide_splat),string(STR_SHELTER_##hide_shelter));\
     }\
     graphics {\
-        sprite_layouts: [sp_test_x(hide_nplat, hide_splat, hide_shelter), sp_test_y(hide_nplat, hide_splat, hide_shelter)];\
+        sprite_layouts: [sp_test_x(hide_nplat, hide_splat, hide_shelter, 0), sp_test_y(hide_nplat, hide_splat, hide_shelter, 0)];\
         custom_spritesets: [s_platform_##platform_spriteset, s_shelter_##shelter_spriteset];\
         prepare_layout: sw_test();\
     }\
 }
 
+#define TRACKLESS_STATION(hide_nplat, hide_splat, hide_shelter, platform_spriteset, shelter_spriteset, ground_type) \
+item (FEAT_STATIONS, i_station_##hide_nplat##hide_splat##hide_shelter##platform_spriteset##shelter_spriteset##ground_type, \
+                    hide_nplat << NPLAT_BIT | hide_splat << SPLAT_BIT | hide_shelter << SHELTER_BIT |\
+                    platform_spriteset << PLATFORM_SPRITESET_BITS | shelter_spriteset << SHELTER_SPRITESET_BITS |\
+                    STANDARD_PLATFORM_BITS | ground_type << GROUND_TYPE_BITS) {\
+    property {\
+        class:      "CNS2";\
+        classname:  string(STR_TRACKLESS_PLATFORMS);\
+        name:       string(STR_STATION_WRAPPER,string(STR_NPLAT_##hide_nplat),string(STR_SPLAT_##hide_splat),string(STR_SHELTER_##hide_shelter));\
+        non_traversable_tiles: STAT_ALL_TILES;\
+    }\
+    graphics {\
+        sprite_layouts: [sp_test_x(hide_nplat, hide_splat, hide_shelter, ground_type), sp_test_y(hide_nplat, hide_splat, hide_shelter, ground_type)];\
+        custom_spritesets: [s_platform_##platform_spriteset, s_shelter_##shelter_spriteset];\
+        prepare_layout: sw_test();\
+    }\
+}
+
+#define GRASS 1
+#define CEMENT 2
+
+#define TRACKLESS_STATION_DEFINES(a,b,ground_type) \
+TRACKLESS_STATION(0,0,0,a,b,ground_type)\
+TRACKLESS_STATION(0,1,0,a,b,ground_type)\
+TRACKLESS_STATION(1,0,0,a,b,ground_type)
 
 #define STANDARD_STATION_DEFINES(a,b) \
 STANDARD_STATION(0,0,0,a,b)\
 STANDARD_STATION(0,1,0,a,b)\
-STANDARD_STATION(1,0,0,a,b)\
+STANDARD_STATION(1,0,0,a,b)
 
 STANDARD_STATION_DEFINES(0,0)
 STANDARD_STATION_DEFINES(0,1)
-STANDARD_STATION(0,0,1,0,1)\
-STANDARD_STATION(0,1,1,0,1)\
-STANDARD_STATION(1,0,1,0,1)\
+STANDARD_STATION_DEFINES(1,0)
+STANDARD_STATION_DEFINES(1,1)
+STANDARD_STATION(0,0,1,0,1)
+STANDARD_STATION(0,1,1,0,1)
+STANDARD_STATION(1,0,1,0,1)
 
 STANDARD_STATION(1,1,1,0,0)
+
+TRACKLESS_STATION_DEFINES(0,0,GRASS)
+TRACKLESS_STATION_DEFINES(0,1,GRASS)
+TRACKLESS_STATION_DEFINES(1,0,GRASS)
+TRACKLESS_STATION_DEFINES(1,1,GRASS)
+TRACKLESS_STATION_DEFINES(0,0,CEMENT)
+TRACKLESS_STATION_DEFINES(0,1,CEMENT)
+TRACKLESS_STATION_DEFINES(1,0,CEMENT)
+TRACKLESS_STATION_DEFINES(1,1,CEMENT)
 
 #undef STANDARD_STATION
 #undef STANDARD_STATION_DEFINES

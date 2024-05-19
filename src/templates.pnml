@@ -5,7 +5,7 @@
 
 #define PATH "vox/"+a+"_32bpp.png"
 
-// empty templates and sprites will be removed after the release of NML 0.7.5   
+// empty templates and sprites will be removed after the release of NML 0.7.5
 // currently for maximum compatibility we need to keep them
 
 template template_platform_NW (a) {[POSITION_X * 0, POSITION_Y, SIZE_X, SIZE_Y, -127, -182, PATH]}
