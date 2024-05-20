@@ -211,19 +211,6 @@ switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_perpendicular,
         nearby_tile_perpendicular( 1,-1) << TILE_X_W|
         nearby_tile_perpendicular(-1, 1) << TILE_X_E) {return;}
 
-//TODO: if openttd/nml #330 is merged, change "other" to "same"
-
-switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_grf,
-        nearby_tile_other_grf(-1, 0) << TILE_X_NE|
-        nearby_tile_other_grf( 1, 0) << TILE_X_SW|
-        nearby_tile_other_grf( 0,-1) << TILE_X_NW|
-        nearby_tile_other_grf( 0, 1) << TILE_X_SE|
-        nearby_tile_other_grf(-1,-1) << TILE_X_N|
-        nearby_tile_other_grf( 1, 1) << TILE_X_S|
-        nearby_tile_other_grf( 1,-1) << TILE_X_W|
-        nearby_tile_other_grf(-1, 1) << TILE_X_E) {return;}
-
-/*
 switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_grf,
         nearby_tile_same_grf(-1, 0) << TILE_X_NE|
         nearby_tile_same_grf( 1, 0) << TILE_X_SW|
@@ -232,7 +219,7 @@ switch (FEAT_STATIONS, SELF, sw_check_nearby_tile_grf,
         nearby_tile_same_grf(-1,-1) << TILE_X_N|
         nearby_tile_same_grf( 1, 1) << TILE_X_S|
         nearby_tile_same_grf( 1,-1) << TILE_X_W|
-        nearby_tile_same_grf(-1, 1) << TILE_X_E) {return;}*/
+        nearby_tile_same_grf(-1, 1) << TILE_X_E) {return;}
 
 switch (FEAT_STATIONS, SELF, sw_test, [
     STORE_TEMP(sw_check_rail_continuation(), TEMP_RAIL_CONTINUATION),

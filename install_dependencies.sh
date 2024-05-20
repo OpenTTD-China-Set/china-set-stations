@@ -15,10 +15,9 @@ git clone https://github.com/openttd/nml.git
 cd nml
 git config user.name "anonymous"
 git config user.email "anonymous@example.com"
-git checkout 0.7.5
+git checkout 522d1bc6a4f631e1d2f18d05ed5abb2fc8f8f494
 git remote add pr_source https://github.com/glx22/nml
 git fetch pr_source layout_registers
-git merge -X theirs pr_source/layout_registers -m "Merge layout_registers"
+git merge -X ours pr_source/layout_registers -m "Merge layout_registers"
 git fetch pr_source var6B
-git merge -X theirs pr_source/var6B -m "Merge var6B"
-rm -rf .git
+git merge -X ours pr_source/var6B -m "Merge var6B"
