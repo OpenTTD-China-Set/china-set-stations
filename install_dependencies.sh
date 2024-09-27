@@ -13,4 +13,4 @@ pip3 install -r requirements.txt
 
 git clone https://github.com/openttd/nml.git
 cd nml
-git checkout 3739dd40029a3a61303f1d43529b4504b56348c5
+git checkout f00eefa0434751ae669fb153f147e79420e35a5a
