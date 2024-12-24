@@ -1,12 +1,14 @@
 changelog.txt
 ===========
+2024 Dec 12 0.2.1
+Update: render configurations
+Fix: platform offsets
+
 2024 May 28 0.2.0
 Add: Trackless platforms
 
 2024 May 18 0.1.1
------------
 Fix #1: Platform switch (#3)
 
 2024 May 3 0.1.0
------------
 Initial public version of CNS
